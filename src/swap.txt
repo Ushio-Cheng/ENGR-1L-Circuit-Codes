@@ -1,0 +1,44 @@
+#include <Arduino.h>
+
+#define LED_RED1 2
+#define LED_RGB1_R 3
+#define LED_RGB1_G 5
+#define LED_RGB1_B 6
+
+#define LEDR_RED 11
+#define LEDR_YELLOW 10
+#define LEDR_GREEN 9
+#define LEDR_BLUE 8
+
+void updateLEDs();
+
+void setup(){
+	pinMode(LED_RED1, OUTPUT);
+	pinMode(LED_RGB1_R, OUTPUT);
+	pinMode(LED_RGB1_G, OUTPUT);
+	pinMode(LED_RGB1_B, OUTPUT);
+	pinMode(LEDR_RED, OUTPUT);
+	pinMode(LEDR_YELLOW, OUTPUT);
+	pinMode(LEDR_GREEN, OUTPUT);
+	pinMode(LEDR_BLUE, OUTPUT);
+}
+
+int ticks = 0;
+
+void loop(){ // Whole loop takes ~1000ms
+  delay(50);
+  ticks+=50;
+  ticks %= 60000;
+  updateLEDs();
+}
+
+void updateLEDs(){
+  if (ticks%1000==500) digitalWrite(LEDR_RED, HIGH);
+  if (ticks%1000==0) digitalWrite(LEDR_RED, LOW);
+  if (ticks%500==250) digitalWrite(LEDR_YELLOW, HIGH);
+  if (ticks%500==0) digitalWrite(LEDR_YELLOW, LOW);
+  if (ticks%250==150) digitalWrite(LEDR_GREEN, HIGH);
+  if (ticks%250==0) digitalWrite(LEDR_GREEN, LOW);
+  if (ticks%150==50) digitalWrite(LEDR_BLUE, HIGH);
+  if (ticks%150==0) digitalWrite(LEDR_BLUE, LOW);
+}
